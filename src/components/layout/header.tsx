@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { NavigationMenu, NavigationMenuList, NavigationMenuItem, NavigationMenuLink } from "@/components/ui/navigation-menu";
-import { Menu } from "lucide-react";
+import { Menu, LogIn, UserPlus } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useUser } from "@/contexts/User";
 import { AuthLogin } from "@/components/auth/Login";
@@ -13,8 +13,8 @@ const menuItems = [
   { label: "Surf Report", href: "/report" },
   // { label: "Surf Report", href: "/surfline" },
   { label: "About", href: "/about" },
-  { label: "Schedule", href: "/schedule" },
-  { label: "Donate", href: "/donate" },
+  // { label: "Schedule", href: "/schedule" },
+  // { label: "Donate", href: "/donate" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -65,9 +65,22 @@ const Header = () => {
             <Link href="/account">Account</Link>
           </Button>
         ) : (
-          <AuthLogin
-            trigger={<Button className="hidden md:block">Sign In</Button>}
-          />
+          <>
+            <AuthLogin
+              trigger={
+                <Button className="hidden md:flex gap-2" variant="default">
+                  <LogIn className="h-4 w-4" />
+                  Sign In
+                </Button>
+              }
+            />
+            <Button className="hidden md:flex gap-2" variant="outline" asChild>
+              <Link href="/register">
+                <UserPlus className="h-4 w-4" />
+                Sign Up
+              </Link>
+            </Button>
+          </>
         )}
       </div>
     </header>

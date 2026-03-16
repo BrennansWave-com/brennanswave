@@ -4,6 +4,14 @@ import { Separator } from "@/components/ui/separator";
 import React from "react";
 
 const Footer: React.FC = () => {
+  const menuItems = [
+    { label: "Surf Report", href: "/report" },
+    // { label: "Surf Report", href: "/surfline" },
+    { label: "About", href: "/about" },
+    { label: "Schedule", href: "/schedule" },
+    { label: "Donate", href: "/donate" },
+    { label: "Contact", href: "/contact" },
+  ];
   const currentYear = new Date().getFullYear();
   return (
     <footer className="pt-8 pb-4 px-4 bg-gray-100 text-center">
@@ -19,6 +27,18 @@ const Footer: React.FC = () => {
             referrerPolicy="no-referrer-when-downgrade"
           />
         </div>
+        <Separator />
+        <nav className="flex flex-row flex-wrap items-center justify-center gap-4 py-4 text-sm">
+          {menuItems.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className="hover:underline transition-colors text-gray-700"
+            >
+              {item.label}
+            </Link>
+          ))}
+        </nav>
         <Separator />
         <div className="text-center py-4">
           <Link href="/" className="text-xl font-bold flex flex-col gap-2 items-center justify-center">

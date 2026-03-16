@@ -63,31 +63,33 @@ export function RegisterForm({ onSuccess, successMessage }: RegisterFormProps) {
           {error}
         </p>
       )}
-      <div className="grid gap-2">
-        <Label htmlFor="register-first-name">First Name</Label>
-        <Input
-          id="register-first-name"
-          type="text"
-          placeholder="First name"
-          value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
-          required
-          autoComplete="given-name"
-          disabled={loading}
-        />
-      </div>
-      <div className="grid gap-2">
-        <Label htmlFor="register-last-name">Last Name</Label>
-        <Input
-          id="register-last-name"
-          type="text"
-          placeholder="Last name"
-          value={lastName}
-          onChange={(e) => setLastName(e.target.value)}
-          required
-          autoComplete="family-name"
-          disabled={loading}
-        />
+      <div className="grid grid-cols-2 gap-4">
+        <div className="grid gap-2">
+          <Label htmlFor="register-first-name">First Name</Label>
+          <Input
+            id="register-first-name"
+            type="text"
+            placeholder="First name"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+            required
+            autoComplete="given-name"
+            disabled={loading}
+          />
+        </div>
+        <div className="grid gap-2">
+          <Label htmlFor="register-last-name">Last Name</Label>
+          <Input
+            id="register-last-name"
+            type="text"
+            placeholder="Last name"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+            required
+            autoComplete="family-name"
+            disabled={loading}
+          />
+        </div>
       </div>
       <div className="grid gap-2">
         <Label htmlFor="register-email">Email Address</Label>
