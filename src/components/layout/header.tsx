@@ -12,6 +12,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 const menuItems = [
   { label: "Surf Report", href: "/surfline" },
+  { label: "About", href: "/about" },
   { label: "Schedule", href: "/schedule" },
   { label: "Donate", href: "/donate" },
   { label: "Contact", href: "/contact" },
