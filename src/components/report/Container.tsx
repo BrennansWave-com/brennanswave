@@ -1,12 +1,14 @@
 "use client";
 
-import { useUser } from "@/contexts/User";
+import { useRef } from "react";
 import { RegisterForm } from "@/components/auth/RegisterForm";
+import TaskManager from "@/components/tasks/Manager";
+import type { User, UserProps } from "@/types/user";
 
-export default function ReportContainer() {
-  const { isAuthenticated } = useUser();
+export default function ReportContainer({ user, userAuthToken }: { user: User | UserProps | null; userAuthToken: string }) {
+  const onCreateTaskRef = useRef<(() => void) | null>(null);
 
-  if (!isAuthenticated) {
+  if (!user || !userAuthToken) {
     return (
       <div className="max-w-md mx-auto py-8">
         <h2 className="text-xl font-semibold text-gray-900 mb-6">
@@ -19,7 +21,10 @@ export default function ReportContainer() {
 
   return (
     <div>
-      <h1>Report</h1>
+      <TaskManager
+        authToken={userAuthToken}
+        onCreateTaskRef={onCreateTaskRef}
+      />
     </div>
   );
 }

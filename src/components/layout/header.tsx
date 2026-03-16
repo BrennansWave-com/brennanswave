@@ -4,10 +4,12 @@ import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { NavigationMenu, NavigationMenuList, NavigationMenuItem, NavigationMenuLink } from "@/components/ui/navigation-menu";
-import { Menu, LogIn, UserPlus } from "lucide-react";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Menu, LogIn, UserPlus, ChevronDown, User, LogOut } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useUser } from "@/contexts/User";
 import { AuthLogin } from "@/components/auth/Login";
+import { logout } from "@/app/actions/auth";
 
 const menuItems = [
   { label: "Surf Report", href: "/report" },
@@ -19,7 +21,12 @@ const menuItems = [
 ];
 
 const Header = () => {
-  const { isAuthenticated } = useUser();
+  const { isAuthenticated, logout: contextLogout } = useUser();
+
+  const handleLogout = async () => {
+    contextLogout();
+    await logout();
+  };
 
   return (
     <header className="flex items-center justify-between p-4 bg-gray-100">
@@ -56,14 +63,34 @@ const Header = () => {
             <div className="text-center">
               <Image src="/kayaker-wave.svg" alt="Kayaker Wave" width={64} height={64} className="object-fit mx-auto"/>
               <small className="block">Version 0.0.1</small>
-              <small>&copy; 2025 Brennan&apos;s Wave</small>
+              <small>&copy; {new Date().getFullYear()} Brennan&apos;s Wave</small>
             </div>
           </SheetContent>
         </Sheet>
         {isAuthenticated ? (
-          <Button className="hidden md:block" asChild>
-            <Link href="/account">Account</Link>
-          </Button>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button className="hidden md:flex gap-1.5" variant="outline">
+                Account
+                <ChevronDown className="h-4 w-4 opacity-70" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-48">
+              <DropdownMenuItem asChild>
+                <Link href="/account" className="flex items-center gap-2 cursor-pointer">
+                  <User className="h-4 w-4" />
+                  Account
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={handleLogout}
+                className="flex items-center gap-2 text-red-600 focus:text-red-600 focus:bg-red-50 dark:focus:bg-red-950/30 cursor-pointer"
+              >
+                <LogOut className="h-4 w-4" />
+                Log out
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         ) : (
           <>
             <AuthLogin
