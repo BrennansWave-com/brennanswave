@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
 import React from "react";
 
@@ -17,6 +18,13 @@ const Footer: React.FC = () => {
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
           />
+        </div>
+        <Separator />
+        <div className="text-center py-4">
+          <Link href="/" className="text-xl font-bold flex flex-col gap-2 items-center justify-center">
+            <Image src="/kayaker-wave.svg" alt="Kayaker Wave" width={64} height={64} className="object-fit mx-auto"/>
+            <span>Brennan&apos;s Wave</span>
+          </Link>
         </div>
         <Separator />
         <div className="mt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-gray-600">
