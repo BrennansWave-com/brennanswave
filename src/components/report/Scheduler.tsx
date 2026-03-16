@@ -6,7 +6,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Spinner } from "@/components/ui/spinner";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import { Clock, AlertTriangle, Calendar } from "lucide-react";
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
+import { Clock, AlertTriangle, Calendar, CheckCircle2 } from "lucide-react";
 import {
   type FormState,
   FREQUENCIES,
@@ -24,6 +25,7 @@ export interface ReportSchedulerProps {
   onSubmit: () => void;
   submitting: boolean;
   formError: string | null;
+  success?: boolean;
 }
 
 export default function ReportScheduler({
@@ -32,15 +34,32 @@ export default function ReportScheduler({
   onSubmit,
   submitting,
   formError,
+  success = false,
 }: ReportSchedulerProps) {
   const { user } = useUser();
   const today = new Date();
   const todayStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
 
+  if (success) {
+    return (
+      <Alert variant="success" className="rounded-xl border-gray-200 bg-white shadow-sm">
+        <CheckCircle2 className="size-5 text-green-600" />
+        <div>
+          <AlertTitle>Report scheduled</AlertTitle>
+          <AlertDescription>
+            Your Brennan&apos;s Wave surf report has been scheduled and will be delivered to{" "}
+            <span className="font-medium">{user?.user_email ?? user?.email ?? "your email"}</span> at the
+            specified time and frequency.
+          </AlertDescription>
+        </div>
+      </Alert>
+    );
+  }
+
   return (
     <section className="rounded-xl border border-gray-200 bg-white shadow-sm">
       <div className="text-center px-6 pt-6 pb-1">
-        <h3 className="text-xl font-semibold text-gray-900">Schedule a Brennan's Wave Surf Report</h3>
+        <h3 className="text-xl font-semibold text-gray-900">Schedule a Brennan&apos;s Wave Surf Report</h3>
       </div>
       <div className="px-6 py-5 space-y-6">
         <div className="flex items-center gap-6">

@@ -17,6 +17,7 @@ export default function ReportContainer() {
   const [form, setForm] = useState<FormState>(DEFAULT_FORM);
   const [formError, setFormError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
+  const [scheduledSuccess, setScheduledSuccess] = useState(false);
 
   const authToken = useMemo(() => {
     if (!isAuthenticated || !user?.user_login || !token) return "";
@@ -60,7 +61,10 @@ export default function ReportContainer() {
     setSubmitting(true);
     axios
       .post(TASKS_URL, payload, { headers })
-      .then(() => setForm(DEFAULT_FORM))
+      .then(() => {
+        setForm(DEFAULT_FORM);
+        setScheduledSuccess(true);
+      })
       .catch((err) => {
         setFormError(
           axios.isAxiosError(err) ? err.response?.data?.message ?? err.message : "Failed to schedule"
@@ -100,6 +104,7 @@ export default function ReportContainer() {
           onSubmit={handleScheduleSubmit}
           submitting={submitting}
           formError={formError}
+          success={scheduledSuccess}
         />
       </div>
     </section>
