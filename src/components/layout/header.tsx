@@ -16,12 +16,14 @@ const menuItems = [
 const Header = () => {
   return (
     <header className="flex items-center justify-between p-4 bg-gray-100">
-      <Link href="/" className="text-xl font-bold flex flex-row gap-2 items-center">
-        <Image src="/kayaker-wave.svg" alt="Kayaker Wave" width={64} height={64} className="object-fit mx-auto"/>
-        <span>Brennan&apos;s Wave</span>
-      </Link>
-      <NavigationMenu className="hidden md:flex">
-        <NavigationMenuList>
+      <div className="flex flex-1 items-center justify-start min-w-0">
+        <Link href="/" className="text-xl font-bold flex flex-row gap-2 items-center">
+          <Image src="/kayaker-wave.svg" alt="Kayaker Wave" width={64} height={64} className="object-fit mx-auto"/>
+          <span>Brennan&apos;s Wave</span>
+        </Link>
+      </div>
+      <NavigationMenu className="hidden md:flex flex-1 justify-center">
+        <NavigationMenuList className="flex gap-1">
           {menuItems.map((item) => (
             <NavigationMenuItem key={item.href}>
               <NavigationMenuLink href={item.href}>{item.label}</NavigationMenuLink>
@@ -29,12 +31,13 @@ const Header = () => {
           ))}
         </NavigationMenuList>
       </NavigationMenu>
-      <Sheet>
-        <SheetTrigger asChild>
-          <Button className="md:hidden ml-auto">
-            <Menu />
-          </Button>
-        </SheetTrigger>
+      <div className="flex flex-1 items-center justify-end gap-2">
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button className="md:hidden">
+              <Menu />
+            </Button>
+          </SheetTrigger>
         <SheetContent side="right" className="flex flex-col space-y-4">
           <div className="flex flex-col space-y-2 p-3 mt-16">
             {menuItems.map((item) => (
@@ -49,8 +52,9 @@ const Header = () => {
             <small>&copy; 2025 Brennan&apos;s Wave</small>
           </div>
         </SheetContent>
-      </Sheet>
-      <Button className="hidden md:block">Sign In</Button>
+        </Sheet>
+        <Button className="hidden md:block">Sign In</Button>
+      </div>
     </header>
   );
 };

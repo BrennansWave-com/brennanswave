@@ -1,6 +1,17 @@
-"use client";
-
 import Image from "next/image";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Brennan's Wave | Under Construction",
+  description:
+    "BrennansWave.com — the official website for Brennan's Wave. A man-made whitewater park on the Clark Fork River in Missoula, Montana. Site coming soon.",
+  openGraph: {
+    title: "Brennan's Wave | Under Construction",
+    description:
+      "BrennansWave.com — the official website for Brennan's Wave in Missoula, Montana. Site coming soon.",
+    type: "website",
+  },
+};
 
 export default function Home() {
   return (
