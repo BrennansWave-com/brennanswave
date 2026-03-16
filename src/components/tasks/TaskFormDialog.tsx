@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+// import { useState } from "react";
 import type { ScheduledTask } from "@/types/task";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -11,7 +11,7 @@ import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Clock, AlertTriangle, CalendarClock, Calendar } from "lucide-react";
 
-const AGENT_AVATAR = "/logo/brennan-avatar.png";
+const AGENT_AVATAR = "/images/Brennan-Ruth-2D-Pixel-Kayaker.jpg";
 const AGENT_NAME = "Brennan";
 import {
   type FormState,
@@ -154,7 +154,7 @@ export default function TaskFormDialog({
               <Avatar className="h-8 w-8 border border-zinc-700 shrink-0">
                 <AvatarImage src={AGENT_AVATAR} alt={AGENT_NAME} className="object-cover" />
               </Avatar>
-              <span className="text-sm font-medium text-white">Agent: {AGENT_NAME}</span>
+              <span className="text-sm font-medium text-white">AI Agent: {AGENT_NAME}</span>
             </div>
           </div>
           <div className="flex items-center gap-6">
