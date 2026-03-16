@@ -25,6 +25,76 @@ export type LoginResponse =
   | { success: true; user: AuthUser; token: string; application_password: string }
   | { success: false; error: string };
 
+export type RegisterWithSetPassEmailResponse =
+  | { success: true; message: string }
+  | { success: false; error: string };
+
+export type SetPasswordResponse =
+  | { success: true; message: string; user: AuthUser; token: string }
+  | { success: false; error: string };
+
+export async function registerWithSetPassEmail(
+  firstName: string,
+  lastName: string,
+  email: string,
+  setPasswordBaseUrl?: string
+): Promise<RegisterWithSetPassEmailResponse> {
+  const base = getApiBase().replace(/\/$/, "");
+  const url = `${base}/wp-json/brennan/v1/register-with-set-pass-email`;
+  const body: { firstName: string; lastName: string; email: string; set_password_base_url?: string } = {
+    firstName,
+    lastName,
+    email,
+  };
+  if (setPasswordBaseUrl) body.set_password_base_url = setPasswordBaseUrl;
+  const res = await fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  });
+  const data = (await res.json()) as RegisterWithSetPassEmailResponse & { success?: boolean };
+  if (!res.ok) {
+    return {
+      success: false,
+      error: (data as { error?: string }).error ?? "Registration failed.",
+    };
+  }
+  if (data.success && "message" in data) {
+    return data as Extract<RegisterWithSetPassEmailResponse, { success: true }>;
+  }
+  return {
+    success: false,
+    error: (data as { error?: string }).error ?? "Invalid response.",
+  };
+}
+
+export async function setPasswordWithToken(
+  token: string,
+  password: string
+): Promise<SetPasswordResponse> {
+  const base = getApiBase().replace(/\/$/, "");
+  const url = `${base}/wp-json/brennan/v1/set-password`;
+  const res = await fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ token, password }),
+  });
+  const data = (await res.json()) as SetPasswordResponse & { success?: boolean };
+  if (!res.ok) {
+    return {
+      success: false,
+      error: (data as { error?: string }).error ?? "Failed to set password.",
+    };
+  }
+  if (data.success && "user" in data && "token" in data) {
+    return data as Extract<SetPasswordResponse, { success: true }>;
+  }
+  return {
+    success: false,
+    error: (data as { error?: string }).error ?? "Invalid response.",
+  };
+}
+
 export async function login(login: string, password: string): Promise<LoginResponse> {
   const base = getApiBase().replace(/\/$/, "");
   const url = `${base}/wp-json/brennan/v1/login`;
