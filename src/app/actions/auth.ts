@@ -42,10 +42,11 @@ export async function logout() {
   return redirect('/login'); 
 }
 
-export async function getCurrentUser(): Promise<UserProps> {
+export async function getCurrentUser(): Promise<UserProps | null> {
   const cookieStore = await cookies();
-  const user_info = cookieStore.get('user_info')?.value || '{}';
-  return JSON.parse(user_info) as UserProps;
+  const raw = cookieStore.get('user_info')?.value;
+  if (!raw || raw === '{}') return null;
+  return JSON.parse(raw) as UserProps;
 }
 
 export async function getCurrentUserToken(): Promise<string | undefined> {
@@ -55,9 +56,8 @@ export async function getCurrentUserToken(): Promise<string | undefined> {
 
 export async function getCurrentUserAuthToken(): Promise<string> {
   const authToken = await getCurrentUserToken();
+  if (!authToken) return "";
   const user = await getCurrentUser();
-  // Provide fallback empty string if user_login or authToken is undefined
-  const userLogin = user?.user_login || "";
-  const token = authToken || "";
-  return btoa(`${userLogin}:${token}`);
+  const userLogin = user?.user_login ?? "";
+  return btoa(`${userLogin}:${authToken}`);
 }
