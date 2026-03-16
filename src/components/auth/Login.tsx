@@ -1,11 +1,10 @@
 "use client"
 
 import * as React from "react"
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger, } from "@/components/ui/dialog"
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 import { login, setAuth } from "@/lib/auth-api"
+import { AuthLoginForm } from "@/components/auth/LoginForm"
 
 interface AuthLoginProps {
   trigger?: React.ReactNode
@@ -53,44 +52,17 @@ export function AuthLogin({ trigger, onSuccess }: AuthLoginProps) {
             Enter your email and password to access your account.
           </DialogDescription>
         </DialogHeader>
-        <form onSubmit={handleSubmit} className="grid gap-4 py-2">
-          {error && (
-            <p className="text-sm text-destructive bg-destructive/10 rounded-md px-3 py-2">
-              {error}
-            </p>
-          )}
-          <div className="grid gap-2">
-            <Label htmlFor="login-email">Email</Label>
-            <Input
-              id="login-email"
-              type="email"
-              placeholder="you@example.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              autoComplete="email"
-              disabled={loading}
-            />
-          </div>
-          <div className="grid gap-2">
-            <Label htmlFor="login-password">Password</Label>
-            <Input
-              id="login-password"
-              type="password"
-              placeholder="••••••••"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              autoComplete="current-password"
-              disabled={loading}
-            />
-          </div>
-          <DialogFooter className="pt-2">
-            <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? "Signing in…" : "Log In"}
-            </Button>
-          </DialogFooter>
-        </form>
+        <AuthLoginForm
+          email={email}
+          password={password}
+          onEmailChange={setEmail}
+          onPasswordChange={setPassword}
+          onSubmit={handleSubmit}
+          loading={loading}
+          error={error}
+          submitLabel="Log In"
+          submitWrapper={DialogFooter}
+        />
       </DialogContent>
     </Dialog>
   )
