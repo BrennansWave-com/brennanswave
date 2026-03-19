@@ -1,7 +1,7 @@
 # Welcome to Brennanwave.com 
 
 
-## End Goal 🏄‍♂️:
+## End  Goal 🏄‍♂️:
 - Landing Page: 3D surf report website with a 3D rendered surfer on Brennan's wave. 
 - About Page: Biography on Brennan and a statement on the culture of Brennan's Wave.
 
