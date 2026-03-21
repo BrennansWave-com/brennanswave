@@ -1,4 +1,4 @@
-# Welcome to Brennanwave.com 
+# Welcome to Brennanswave.com 
 
 
 ## End  Goal 🏄‍♂️:
